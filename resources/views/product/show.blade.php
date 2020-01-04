@@ -1,12 +1,11 @@
 @extends('layouts.main')
 
 @section('content')
-
-        <product-list-item 
-            image_url="{{$product->image_url}}" 
-            detail_url="{{route('product.show',$product->id)}}">
-                <template slot="name">{{$product->name}}</template>
-                <template slot="description">{{$product->description}}</template>
-        </product-list-item>           
+<product-detail-holder
+        image_url="{{$product->image_url}}"
+        name="{{$product->name}}"
+        price="{{$product->price}}">
+        {{$product->description}}
+</product-detail-holder>
 
 @endsection
