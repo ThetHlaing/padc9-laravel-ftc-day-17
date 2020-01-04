@@ -11,6 +11,20 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+
+
+Auth::routes();
+
+
+Route::middleware('cart.check')->group(function(){
+    Route::get('/', function () {
+        return redirect('/product');
+    });
+    
+    Route::get('/home', 'HomeController@index')->name('home');
+    
+    Route::resource('product','ProductController')->only(['index','show']);
+    
+    
 });
+
