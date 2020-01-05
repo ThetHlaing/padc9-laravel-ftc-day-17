@@ -12,22 +12,19 @@
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     </head>
     <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
+        <div class="flex-center position-ref full-height" id='app'>          
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
+            <nav-bar>
+                <nav-item href="{{ url('/') }}">Home</nav-item>
+                @guest
+                <nav-item href="{{ route('login') }}">Login</nav-item>
+                <nav-item href="{{ route('register') }}">Register</nav-item>
+                @else
+                <nav-item href="{{ url('/home') }}">Profile</nav-item>
+                @endguest
+            </nav-bar>           
 
-            <div id="app" class="container">
+            <div class="container">
                 @yield('content')
             </div>
         </div>

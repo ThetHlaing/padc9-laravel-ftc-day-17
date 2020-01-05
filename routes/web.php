@@ -21,10 +21,12 @@ Route::middleware('cart.check')->group(function(){
         return redirect('/product');
     });
     
-    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('home', 'HomeController@index')->name('home');
     
     Route::resource('product','ProductController')->only(['index','show']);
     
-    
+    Route::get('shopping-cart','CartController@show');
+
+    Route::resource('cart-item','CartItemController')->only(['store','update','destroy']);
 });
 

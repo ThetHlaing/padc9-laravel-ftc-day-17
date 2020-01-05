@@ -8,12 +8,13 @@
       <p>
         <slot></slot>
       </p>
-      <button class="btn btn-primary">Buy now with {{price}} USD</button>
+      <slot name="create_form">
+      </slot>            
     </div>
   </div>
 </template>
 <script>
 export default {
-  props: ["name", "price", "image_url"]
+  props: ["name", "price", "image_url","save_url"]
 };
 </script>

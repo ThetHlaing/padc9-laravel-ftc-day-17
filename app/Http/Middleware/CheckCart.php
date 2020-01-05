@@ -17,7 +17,17 @@ class CheckCart
     public function handle($request, Closure $next)
     {
         if(auth()->check()){
-            dd(auth()->user());
+            $customer = auth()->user();
+            // $carts = \App\Cart::where('customer_id',$customer->id)->get();            
+            if($customer->active_cart == null){
+                // factory(\App\Cart::class)->create(['customer_id'=>$customer->id]);
+                
+                // $cart = new \App\Cart();
+                // $cart->customer_id = $customer->id;
+                // $cart->save();
+
+                \App\Cart::create(['customer_id'=>$customer->id]);
+            }            
         }
 
         return $next($request);

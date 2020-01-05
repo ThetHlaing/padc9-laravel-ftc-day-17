@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Cart;
+use App\CartItem;
 use Illuminate\Http\Request;
 
-class CartController extends Controller
+class CartItemController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -35,30 +35,38 @@ class CartController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        if (auth()->check()) {
+            $cart_item = new \App\CartItem();
+            $cart_item->product_id = $request->product_id;
+            $cart_item->cart_id = auth()->user()->active_cart->id;
+            $cart_item->qty = 1;
+            $cart_item->save();
+
+            return redirect('\shopping-cart');
+        } else {
+            dd("Need to redriect to the login page");
+        }
+
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Cart  $cart
+     * @param  \App\CartItem  $cartItem
      * @return \Illuminate\Http\Response
      */
-    public function show()
+    public function show(CartItem $cartItem)
     {
-        $customer = auth()->user();
-        $items = $customer->active_cart->items;
-        
-        return view('cart.index',compact('items'));
+        //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Cart  $cart
+     * @param  \App\CartItem  $cartItem
      * @return \Illuminate\Http\Response
      */
-    public function edit(Cart $cart)
+    public function edit(CartItem $cartItem)
     {
         //
     }
@@ -67,10 +75,10 @@ class CartController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Cart  $cart
+     * @param  \App\CartItem  $cartItem
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Cart $cart)
+    public function update(Request $request, CartItem $cartItem)
     {
         //
     }
@@ -78,10 +86,10 @@ class CartController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Cart  $cart
+     * @param  \App\CartItem  $cartItem
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Cart $cart)
+    public function destroy(CartItem $cartItem)
     {
         //
     }

@@ -6,6 +6,13 @@
         name="{{$product->name}}"
         price="{{$product->price}}">
         {{$product->description}}
+        <template slot="create_form">
+        <form method="POST" action="{{route('cart-item.store')}}">
+                @csrf
+                <input type="hidden" value="{{$product->id}}" name="product_id"/>
+                <button class="btn btn-primary" type="submit">Buy now with {{$product->price}} USD</button>
+        </form>  
+        </template>
 </product-detail-holder>
 
 @endsection
